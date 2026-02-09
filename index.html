@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raagify - Premium Audio</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="C:\Users\jayde\OneDrive\Desktop\Mucsic app\2\music.jpg">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app-layout">
+        <aside class="sidebar-left">
+            <div class="logo-box"><i class="fas fa-play-circle"></i> RAAGIFY</div>
+            <div class="mini-card" onclick="goHome()" style="background: var(--glass); margin-bottom: 20px;">
+                <i class="fas fa-home"></i> <b>Home</b>
+            </div>
+            <div class="side-title">New Tracks</div>
+            <div id="latestSongs"></div>
+        </aside>
+
+        <main class="main-view" id="mainScroll">
+            <div class="top-nav">
+                <div class="nav-controls">
+                    <div class="nav-btn" id="backBtn" onclick="navHistory(-1)"><i class="fas fa-chevron-left"></i></div>
+                    <div class="nav-btn" id="fwdBtn" onclick="navHistory(1)"><i class="fas fa-chevron-right"></i></div>
+                </div>
+                <div class="search-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="mainSearch" placeholder="Search songs..."
+                        onkeypress="if(event.key==='Enter') searchMusic(this.value)">
+                </div>
+            </div>
+
+            <div id="profileBanner">
+                <img id="profileImg" src="">
+                <div class="profile-info">
+                    <p id="profileType"
+                        style="text-transform:uppercase; font-size:12px; font-weight:bold; letter-spacing:1px;"></p>
+                    <h1 id="profileName">Artist Name</h1>
+                    <p id="profileMeta">Official Profile</p>
+                </div>
+            </div>
+
+            <div id="homeSections">
+                <div class="section-header"
+                    style="padding: 25px 30px 10px; display: flex; justify-content: space-between;">
+                    <h3>Popular Artists</h3>
+                    <button class="chip" onclick="toggleArtists()">See More</button>
+                </div>
+                <div class="horizontal-scroll" id="artistRow"></div>
+                <div class="section-header" style="padding: 25px 30px 10px;">
+                    <h3>Categories</h3>
+                </div>
+                <div id="categoryRow" class="chip-container"></div>
+                <div class="section-header" style="padding: 25px 30px 10px;">
+                    <h3>Mood Tags</h3>
+                </div>
+                <div id="tagRow" class="chip-container"></div>
+            </div>
+
+            <div class="section-header" style="padding: 25px 30px 15px;">
+                <h3 id="gridTitle">Trending Now</h3>
+            </div>
+            <div class="song-grid" id="mainGrid"></div>
+        </main>
+
+        <aside class="sidebar-right">
+            <div class="side-title">Recently Played</div>
+            <div id="recentList"></div>
+        </aside>
+    </div>
+
+    <footer class="player-bar">
+        <div class="p-info">
+            <img src="https://via.placeholder.com/150" id="curImg">
+            <div style="overflow:hidden">
+                <div id="curTitle" style="font-weight:600; font-size:14px; white-space:nowrap; text-overflow:ellipsis;">
+                    Select Song</div>
+                <div id="curArtist" style="font-size:11px; color:var(--text-dim);">Artist</div>
+            </div>
+        </div>
+        <div class="p-controls">
+            <div class="main-btns">
+                <i class="fas fa-backward" onclick="skipTime(-10)"></i>
+                <i class="fas fa-step-backward" onclick="prevSong()"></i>
+                <div class="play-pause" onclick="togglePlay()"><i class="fas fa-play" id="playIcon"></i></div>
+                <i class="fas fa-step-forward" onclick="nextSong()"></i>
+                <i class="fas fa-forward" onclick="skipTime(10)"></i>
+            </div>
+            <div class="p-bar-container">
+                <span id="cTime">0:00</span>
+                <div class="p-bar" onclick="seek(event)">
+                    <div class="p-fill" id="pFill"></div>
+                </div>
+                <span id="dTime">0:00</span>
+            </div>
+        </div>
+        <div style="width:300px; display:flex; justify-content:flex-end; align-items:center; gap:15px;">
+            <i class="fas fa-volume-up"></i>
+            <input type="range" min="0" max="1" step="0.1" value="0.8" oninput="audio.volume = this.value"
+                style="accent-color:var(--accent); width:80px;">
+        </div>
+    </footer>
+
+    <audio id="mainAudio"></audio>
+
+<script src="scripts.js"></script>
+</body>
+
+</html>
